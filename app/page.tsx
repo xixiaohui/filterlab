@@ -1,10 +1,11 @@
-
-
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      
-     <p>filter lab</p>
+      <p
+        className="text-8xl text-blue-800 tracking-tighter text-balance"
+      >
+        filter lab
+      </p>
     </div>
   );
 }
