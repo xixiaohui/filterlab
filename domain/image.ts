@@ -12,7 +12,7 @@ export interface Image {
    * 图像源，不限定实现
    * 可以是 URL / ImageBitmap / ArrayBuffer
    */
-  source: unknown
+  source: string | null
 }
 
 

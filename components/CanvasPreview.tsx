@@ -1,32 +1,31 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
-import { Pipeline } from '@/domain/pipeline'
-import { renderPipelineToCanvas } from '@/rendering/canvasRenderer'
-
+import { useEffect, useRef } from "react";
+import { Pipeline } from "@/domain/pipeline";
+import { renderPipelineToCanvas } from "@/rendering/canvasRenderer";
 
 interface Props {
-  imageUrl: string
-  pipeline: Pipeline | null
+  imageUrl: string;
+  pipeline: Pipeline | null;
 }
 
 export function CanvasPreview({ imageUrl, pipeline }: Props) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!pipeline || !canvasRef.current) return
+    if (!pipeline || !canvasRef.current) return;
 
-    const img = new Image()
-    img.src = imageUrl
+    const img = new Image();
+    img.src = imageUrl;
 
     img.onload = () => {
       renderPipelineToCanvas(
         canvasRef.current!,
         { image: img, width: img.width, height: img.height },
         pipeline
-      )
-    }
-  }, [imageUrl, pipeline])
+      );
+    };
+  }, [imageUrl, pipeline]);
 
-  return <canvas ref={canvasRef} />
+  return <canvas ref={canvasRef} />;
 }

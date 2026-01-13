@@ -1,7 +1,6 @@
 import { Pipeline } from '@/domain/pipeline'
-import { RuntimeImage } from '../domain/image'
 import { applyCanvasFilter } from './canvasFilters'
-
+import { RuntimeImage } from '@/domain/image'
 
 export async function renderPipelineToCanvas(
   canvas: HTMLCanvasElement,

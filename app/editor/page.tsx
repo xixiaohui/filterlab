@@ -4,6 +4,7 @@ import { useEditor } from "@/features/editor/useEditor";
 import { useEditorCommands } from "@/features/editor/useEditorCommands";
 import { Image } from "@/domain/image";
 import { exportEditorState } from "@/features/editor/exportState";
+import { CanvasPreview } from "@/components/CanvasPreview";
 
 export default function EditorPage() {
   const { state, dispatch } = useEditor();
@@ -13,7 +14,7 @@ export default function EditorPage() {
     id: "img1",
     width: 100,
     height: 100,
-    source: null,
+    source: '/img/1763095711742.jpg',
   };
 
   console.log("Editor page render");
@@ -23,7 +24,7 @@ export default function EditorPage() {
       <h1 className="text-4xl text-blue-700 tracking-tighter text-balance ">
         Image Editor
       </h1>
-      const editor = useEditorCommands(dispatch)
+
       <button
         className="bg-sky-500 hover:bg-sky-700 rounded-xs m-7"
         onClick={() => editor.loadImage(testImage)}
@@ -70,6 +71,15 @@ export default function EditorPage() {
       >
         Import JSON
       </button>
+      <div>
+        {state.present.originalImage?.source && (
+          <CanvasPreview
+            imageUrl={state.present.originalImage.source}
+            pipeline={state.present.pipeline}
+          />
+        )}
+      </div>
+
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>
   );
