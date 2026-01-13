@@ -3,6 +3,7 @@
 import { useEditor } from "@/features/editor/useEditor";
 import { useEditorCommands } from "@/features/editor/useEditorCommands";
 import { Image } from "@/domain/image";
+import { exportEditorState } from "@/features/editor/exportState";
 
 export default function EditorPage() {
   const { state, dispatch } = useEditor();
@@ -46,6 +47,28 @@ export default function EditorPage() {
         onClick={() => editor.undo()}
       >
         Undo
+      </button>
+      <button
+        className="bg-sky-500 hover:bg-sky-700 rounded-xs m-7"
+        onClick={() => {
+          const data = exportEditorState(state);
+          console.log(JSON.stringify(data, null, 2));
+        }}
+      >
+        Export JSON
+      </button>
+      <button
+        className="bg-sky-500 hover:bg-sky-700 rounded-xs m-7"
+        onClick={()=>{
+          const json = prompt('Paste state JSON')
+          if (!json) return
+          dispatch({
+            type: 'IMPORT',
+            state: JSON.parse(json),
+          })
+        }}
+      >
+        Import JSON
       </button>
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>

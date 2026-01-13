@@ -1,20 +1,18 @@
-'use client'
+"use client";
 
-import { useReducer,useMemo } from "react"
-import { pipeline } from "stream"
-import { EditorState, Snapshot } from "./editorState"
-import { FilterEngine } from "@/services/filterEngine"
-import { MockFilterEngine } from "@/services/mockFilterEngine"
-import { EditorAction } from "./editorActions"
-import { editorReducer } from "./editorController"
-
-
+import { useReducer, useMemo } from "react";
+import { pipeline } from "stream";
+import { EditorState, Snapshot } from "./editorState";
+import { FilterEngine } from "@/services/filterEngine";
+import { MockFilterEngine } from "@/services/mockFilterEngine";
+import { EditorAction } from "./editorActions";
+import { editorReducer } from "./editorController";
 
 const initialSnapshot: Snapshot = {
   originalImage: null,
   currentImage: null,
   pipeline: null,
-  isInitial: true
+  isInitial: true,
 };
 
 export const initialEditorState: EditorState = {
@@ -23,21 +21,28 @@ export const initialEditorState: EditorState = {
   future: [],
 };
 
-export function useEditor(engine?: FilterEngine){
+export function createStateFromSnapshot(snapshot: Snapshot): EditorState {
+  return {
+    past: [],
+    present: snapshot,
+    future: [],
+  };
+}
 
-    const filterEngine = useMemo(
-      () => engine ?? new MockFilterEngine(),
-      [engine]
-    );
+export function useEditor(engine?: FilterEngine) {
+  const filterEngine = useMemo(
+    () => engine ?? new MockFilterEngine(),
+    [engine]
+  );
 
-    const [state, dispatchBase] = useReducer(
-      (state: EditorState, action: EditorAction) =>
-        editorReducer(state, action, filterEngine),
-      initialEditorState
-    );
+  const [state, dispatchBase] = useReducer(
+    (state: EditorState, action: EditorAction) =>
+      editorReducer(state, action, filterEngine),
+    initialEditorState
+  );
 
-    return {
-      state,
-      dispatch: dispatchBase,
-    };
+  return {
+    state,
+    dispatch: dispatchBase,
+  };
 }

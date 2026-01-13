@@ -16,3 +16,8 @@ export interface Image {
 }
 
 
+export interface RuntimeImage {
+  image: HTMLImageElement
+  width: number
+  height: number
+}

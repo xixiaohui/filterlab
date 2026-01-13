@@ -1,5 +1,6 @@
 import { Image } from "@/domain/image";
 import { Filter } from "@/domain/filter";
+import { SerializedEditorState } from "@/domain/serialization";
 
 export type EditorAction =
   | { type: "LOAD_IMAGE"; image: Image }
@@ -8,4 +9,6 @@ export type EditorAction =
   | { type: "APPLY_PIPELINE" }
   | { type: "RESET" }
   | { type: 'UNDO' }
-  | { type: 'REDO' };
+  | { type: 'REDO' }
+  | { type: 'EXPORT' }
+  | { type: 'IMPORT'; state: SerializedEditorState };

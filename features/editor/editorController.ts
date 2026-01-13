@@ -2,6 +2,8 @@ import { EditorState, Snapshot } from "./editorState";
 import { EditorAction } from "./editorActions";
 import { applyPipeline } from "@/services/applyPipeline";
 import { FilterEngine } from "@/services/filterEngine";
+import { deserializeSnapshot } from "./deserialize";
+import { createStateFromSnapshot } from "./useEditor";
 
 
 function isSameSnapshot(a: Snapshot, b: Snapshot) {
@@ -126,6 +128,10 @@ export function editorReducer(
     //       filters: [],
     //     },
     //   };
+    case 'IMPORT': {
+      const snapshot = deserializeSnapshot(action.state.snapshot)
+      return createStateFromSnapshot(snapshot)
+    }
     default:
       return state;
   }
